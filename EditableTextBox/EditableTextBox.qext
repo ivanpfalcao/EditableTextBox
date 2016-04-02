@@ -1,0 +1,15 @@
+{
+	"name": "EditableTextBox",
+	"description": "Editable Text Box. It also habilitates the text and applies different colors depending on the condition. Habilitates CSS for the layout of each line",
+	"type": "visualization",
+	"version": "1.0.0",
+	"icon": "extension",
+	"author": "Ivan Falcão",
+	"homepage": "",
+	"keywords": "qlik-sense, visualization, Text, CSS",
+	"license": "",
+	"repository": "",
+	"dependencies": {
+		"qlik-sense": ">=1.0.x"
+	}
+}
