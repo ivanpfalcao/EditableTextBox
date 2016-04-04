@@ -123,7 +123,10 @@ function($, properties, cssContent) {
 					}
 					var CSSAdicional = layout.CSSAdicional;					
 					var CSSParagrafo = layout.CSSParagrafo;	
-					html += "<p style='" + CSSParagrafo + "'><div style='background-color:"+ BackgroundColor + ";color:" + fontColorHC + ";" + CSSAdicional + ";'>" + qTexto + "</div></p>";
+					
+					//Gets the value of the added measures (from the hypercube)
+					var qTextoOriginal = layout.qHyperCube.qDataPages[0].qMatrix[0][i].qText;	
+					html += "<p style='" + CSSParagrafo + "'><div style='background-color:"+ BackgroundColor + ";color:" + fontColorHC + ";" + CSSAdicional + ";'>" + qTextoOriginal + "</div></p>";
 					
 
 				}
