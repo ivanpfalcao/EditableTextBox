@@ -23,6 +23,15 @@ function($, properties, cssContent) {
 			if(qData && qData.qMatrix) {
 				
 				//Generates HTML
+				console.log('Layout',layout);
+				html += layout.lineList[0].lineValue;
+				html += '<br>';
+				html += layout.lineList.length;
+				html += '<br>';
+				html += layout.lineList[0].lineCSS;
+				html += '<br>';
+				html += layout.lineList[1].lineValue;
+				
 				
 				//Get the number of measures 
 				var lenMatriz = parseInt(layout.qHyperCube.qDataPages[0].qMatrix[0].length);
