@@ -23,21 +23,16 @@ function($, properties, cssContent) {
 			if(qData && qData.qMatrix) {
 				
 				//Generates HTML
-				console.log('Layout',layout);
-				html += layout.lineList[0].lineValue;
-				html += '<br>';
-				html += layout.lineList.length;
-				html += '<br>';
-				html += layout.lineList[0].lineCSS;
-				html += '<br>';
-				html += layout.lineList[1].lineValue;
+				
+				//Hierarchy console generation
+				console.log('Layout',layout);	
 				
 				
-				//Get the number of measures 
-				var lenMatriz = parseInt(layout.qHyperCube.qDataPages[0].qMatrix[0].length);
+				//Get the number of items 
+				var lenItems = layout.lineList.length;
 
 				
-				//Generate the lines considering the value of the measure
+				//Generate the lines considering the value of the items
 				var i;
 				var qTexto;
 				var BackgroundColor;
@@ -59,23 +54,23 @@ function($, properties, cssContent) {
 						"#000000"
 				];	
 				
-				for (i=0;i<lenMatriz;i++){	
+				for (i=0;i<lenItems;i++){	
 
-					//Gets the value of the added measures (from the hypercube) converting to integer
-					qTexto = parseInt(layout.qHyperCube.qDataPages[0].qMatrix[0][i].qText);					
+					//Gets the value of the added item  converting to integer
+					qTexto = parseInt(layout.lineList[i].lineValue);					
 					if (isNaN(qTexto) || qTexto == null || qTexto.length < 1){
 						
 						// Configures the colors for alfanumeric values
 						
 						
 						// Set background color
-						BackgroundColor = palette[layout.colorBA];
+						BackgroundColor = palette[layout.lineList[i].colorBA];
 						
 						// Set font color
-						fontColorHC = palette[layout.colorFA];
+						fontColorHC = palette[layout.lineList[i].colorFA];
 						
 						// Set alfanumeric values
-						qTexto = layout.qHyperCube.qDataPages[0].qMatrix[0][i].qText;
+						//qTexto = layout.lineList[i].lineValue;
 						
 						// Configures the colors for alfanumeric values - end
 						
@@ -88,10 +83,10 @@ function($, properties, cssContent) {
 
 
 							// Set background color
-							BackgroundColor = palette[layout.color03];
+							BackgroundColor = palette[layout.lineList[i].color03];
 
 							// Set font color
-							fontColorHC = palette[layout.color06];
+							fontColorHC = palette[layout.lineList[i].color06];
 
 
 							// Configures the colors for values equal zeroes - end
@@ -105,10 +100,10 @@ function($, properties, cssContent) {
 
 
 									// Set background color
-									BackgroundColor = palette[layout.color01];
+									BackgroundColor = palette[layout.lineList[i].color01];
 
 									// Set font color
-									fontColorHC = palette[layout.color04];
+									fontColorHC = palette[layout.lineList[i].color04];
 
 
 									// Configures the colors for values greater than zeroes - end	
@@ -119,10 +114,10 @@ function($, properties, cssContent) {
 
 
 									// Set background color
-									BackgroundColor = palette[layout.color02];
+									BackgroundColor = palette[layout.lineList[i].color02];
 
 									// Set font color
-									fontColorHC = palette[layout.color05];
+									fontColorHC = palette[layout.lineList[i].color05];
 
 
 									// Configures the colors for values lesser than zeroes - end								}
@@ -130,12 +125,20 @@ function($, properties, cssContent) {
 									}
 							}
 					}
-					var CSSAdicional = layout.CSSAdicional;					
-					var CSSParagrafo = layout.CSSParagrafo;	
+					var vLineCSSDiv = layout.lineList[i].lineCSSDiv;					
+					var vLineCSSP = layout.lineList[i].lineCSSP;	
 					
-					//Gets the value of the added measures (from the hypercube)
-					var qTextoOriginal = layout.qHyperCube.qDataPages[0].qMatrix[0][i].qText;	
-					html += "<p style='" + CSSParagrafo + "'><div style='background-color:"+ BackgroundColor + ";color:" + fontColorHC + ";" + CSSAdicional + ";'>" + qTextoOriginal + "</div></p>";
+					//Gets the value of the added measures
+					if (layout.lineList[i].lineValue.length > 0) {
+						var vOriginalText = layout.lineList[i].lineValue;
+					}
+					else
+					{
+						var vOriginalText = "-";
+					}
+					
+					//Generates the html code
+					html += "<p style='" + vLineCSSP + "'><div style='background-color:"+ BackgroundColor + ";color:" + fontColorHC + ";" + vLineCSSDiv + ";'>" + vOriginalText + "</div></p>";
 					
 
 				}

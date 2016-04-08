@@ -26,7 +26,7 @@ define( [], function ( ) {
 			MyList: {                              
 				type: "array",                       
 				ref: "lineList",                     
-				label: "Configurações por Linha",    
+				label: "Line Settings",    
 				itemTitleRef: "label",               
 				allowAdd: true,                      
 				allowRemove: true,                   
@@ -69,56 +69,56 @@ define( [], function ( ) {
 						component: "color-picker",
 						ref: "color01",
 						type: "integer",
-						defaultValue: 3
+						defaultValue: 10
 					},
 					MyColorPicker02: {
 						label:"Background Color (<0)",
 						component: "color-picker",
 						ref: "color02",
 						type: "integer",
-						defaultValue: 3
+						defaultValue: 10
 					},
 					MyColorPicker03: {
 						label:"Background Color (=0)",
 						component: "color-picker",
 						ref: "color03",
 						type: "integer",
-						defaultValue: 3
+						defaultValue: 10
 					},
 					MyColorPickerBA: {
 						label:"Background Color (Alfanumeric)",
 						component: "color-picker",
 						ref: "colorBA",
 						type: "integer",
-						defaultValue: 3
+						defaultValue: 10
 					},
 					MyColorPicker04: {
 						label:"Font Color (>0)",
 						component: "color-picker",
 						ref: "color04",
 						type: "integer",
-						defaultValue: 10
+						defaultValue: 11
 					},
 					MyColorPicker05: {
 						label:"Font Color (<0)",
 						component: "color-picker",
 						ref: "color05",
 						type: "integer",
-						defaultValue: 10
+						defaultValue: 11
 					},
 					MyColorPicker06: {
 						label:"Font Color (=0)",
 						component: "color-picker",
 						ref: "color06",
 						type: "integer",
-						defaultValue: 10
+						defaultValue: 11
 					},
 					MyColorPickerFA: {
 						label:"Font Color (Alfanumeric)",
 						component: "color-picker",
 						ref: "colorFA",
 						type: "integer",
-						defaultValue: 10
+						defaultValue: 11
 					}
 					//color end
 				}                                    
