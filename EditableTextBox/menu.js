@@ -39,26 +39,7 @@ define( [], function ( ) {
 						ref: "lineValue",                 
 						label: "Line Value",				     
 						expression: "always"    
-					},  
-					lineCSSDiv: {                        
-						type: "string",                  
-						ref: "lineCSSDiv",                 
-						label: "Line CSS <div>",  
-						expression: "always"    
 					},
-					lineCSSP: {                        
-						type: "string",                  
-						ref: "lineCSSP",                 
-						label: "Line CSS <p>",  
-						expression: "always"    
-					},
-					linkHref: {                        
-						type: "string",                  
-						ref: "linkHref",                 
-						label: "href Link",				     
-						expression: "always"    
-					},
-					//color ini
 					MyColorPicker01: {
 						label:"Background Color (>0)",
 						component: "color-picker",
@@ -114,8 +95,31 @@ define( [], function ( ) {
 						ref: "colorFA",
 						type: "integer",
 						defaultValue: 11
+					}, 
+					lineCSSDiv: {                        
+						type: "string",                  
+						ref: "lineCSSDiv",                 
+						label: "Line CSS <div>",  
+						expression: "always"    
+					},
+					lineCSSP: {                        
+						type: "string",                  
+						ref: "lineCSSP",                 
+						label: "Line CSS <p>",  
+						expression: "always"    
+					},
+					linkHref: {                        
+						type: "string",                  
+						ref: "linkHref",                 
+						label: "href Link",				     
+						expression: "always"    
+					},
+					linkHrefCSS: {                        
+						type: "string",                  
+						ref: "linkHrefCSS",                 
+						label: "href CSS <a href>",				     
+						expression: "always"    
 					}
-					//color end
 				}                                    
 			}                                      
 			

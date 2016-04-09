@@ -126,7 +126,24 @@ function($, properties, cssContent) {
 							}
 					}
 					var vLineCSSDiv = layout.lineList[i].lineCSSDiv;					
-					var vLineCSSP = layout.lineList[i].lineCSSP;	
+					var vLineCSSP = layout.lineList[i].lineCSSP;
+					
+
+					if (layout.lineList[i].linkHref.length>0) {
+						vlinkHrefClose = "</a>"
+						if (layout.lineList[i].linkHrefCSS.length>0) {
+							vlinkHref = "<a style='color:" + fontColorHC + ";" + layout.lineList[i].linkHrefCSS + "' href='" + layout.lineList[i].linkHref + "'>";
+						} 
+						else
+						{
+							vlinkHref = "<a href='" + layout.lineList[i].linkHref + "'>";
+						}
+					}
+					else
+					{
+						var vlinkHref = "";
+						var vlinkHrefClose = "";
+					}
 					
 					//Gets the value of the added measures
 					if (layout.lineList[i].lineValue.length > 0) {
@@ -134,11 +151,12 @@ function($, properties, cssContent) {
 					}
 					else
 					{
-						var vOriginalText = "-";
+						var vOriginalText = " ";
 					}
 					
+					
 					//Generates the html code
-					html += "<p style='" + vLineCSSP + "'><div style='background-color:"+ BackgroundColor + ";color:" + fontColorHC + ";" + vLineCSSDiv + ";'>" + vOriginalText + "</div></p>";
+					html += "<p style='" + vLineCSSP + "'>" + vlinkHref + "<div style='background-color:"+ BackgroundColor + ";color:" + fontColorHC + ";" + vLineCSSDiv + ";'>" + vOriginalText + "</div>" + vlinkHrefClose + "</p>";
 					
 
 				}
