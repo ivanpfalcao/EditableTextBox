@@ -1,3 +1,4 @@
+// Concatenated version 
 /**
  * @license jahashtable, a JavaScript implementation of a hash table. It creates a single constructor function called
  * Hashtable in the global scope.

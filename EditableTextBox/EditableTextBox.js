@@ -24,7 +24,7 @@ function($, properties, cssContent, nformater) {
 				
 				//Generates HTML
 				
-				//Hierarchy console generation
+				//Hierarchy console generation (debug only)
 				//console.log('Layout',layout);	
 				
 				

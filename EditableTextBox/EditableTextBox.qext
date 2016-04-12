@@ -5,7 +5,6 @@
 	"version": "2.0.0",
 	"icon": "extension",
 	"author": "Ivan Falcão",
-	"homepage": "",
 	"keywords": "qlik-sense, visualization, Text, CSS",
 	"license": "GPL-LICENSE",
 	"repository": "https://github.com/ivanpfalcao/EditableTextBox",
