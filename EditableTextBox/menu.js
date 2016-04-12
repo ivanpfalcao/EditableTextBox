@@ -40,6 +40,13 @@ define( [], function ( ) {
 						label: "Line Value",				     
 						expression: "always"    
 					},
+					textFormat: {                        
+						type: "string",                  
+						ref: "textFormat",                 
+						label: "Text Formatting",				     
+						expression: "",
+						defaultValue:"#,#0.0"
+					},
 					MyColorPicker01: {
 						label:"Background Color (>0)",
 						component: "color-picker",
@@ -133,4 +140,5 @@ define( [], function ( ) {
 	};
  
 });
+
 

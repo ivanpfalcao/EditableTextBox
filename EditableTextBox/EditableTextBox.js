@@ -1,5 +1,5 @@
-define(["jquery", "./menu", "text!./Layout01.css"], 
-function($, properties, cssContent) {
+define(["jquery", "./menu", "text!./Layout01.css", "./src/nformatter.htable"],  
+function($, properties, cssContent, nformater) {
 	'use strict';
 	$("<style>").html(cssContent).appendTo("head");
 	return {
@@ -25,7 +25,7 @@ function($, properties, cssContent) {
 				//Generates HTML
 				
 				//Hierarchy console generation
-				console.log('Layout',layout);	
+				//console.log('Layout',layout);	
 				
 				
 				//Get the number of items 
@@ -57,11 +57,11 @@ function($, properties, cssContent) {
 				for (i=0;i<lenItems;i++){	
 
 					//Gets the value of the added item  converting to integer
-					qTexto = parseInt(layout.lineList[i].lineValue);					
+					qTexto = layout.lineList[i].lineValue;		
+					qTexto = qTexto.replace(",",".");
 					if (isNaN(qTexto) || qTexto == null || qTexto.length < 1){
 						
 						// Configures the colors for alfanumeric values
-						
 						
 						// Set background color
 						BackgroundColor = palette[layout.lineList[i].colorBA];
@@ -69,19 +69,17 @@ function($, properties, cssContent) {
 						// Set font color
 						fontColorHC = palette[layout.lineList[i].colorFA];
 						
-						// Set alfanumeric values
-						//qTexto = layout.lineList[i].lineValue;
 						
 						// Configures the colors for alfanumeric values - end
 						
 					} else
 					{
-					
+						qTexto = parseFloat(qTexto);
 						if (qTexto==0)
 						{					
 							// Configures the colors for values equal zeroes
 
-
+						
 							// Set background color
 							BackgroundColor = palette[layout.lineList[i].color03];
 
@@ -97,8 +95,8 @@ function($, properties, cssContent) {
 								if (qTexto>0)
 								{
 									// Configures the colors for values greater than zeroes
-
-
+									
+				
 									// Set background color
 									BackgroundColor = palette[layout.lineList[i].color01];
 
@@ -112,7 +110,7 @@ function($, properties, cssContent) {
 									{							
 									// Configures the colors for values lesser than zeroes
 
-
+			
 									// Set background color
 									BackgroundColor = palette[layout.lineList[i].color02];
 
@@ -145,19 +143,30 @@ function($, properties, cssContent) {
 						var vlinkHrefClose = "";
 					}
 					
+					var vOriginalText;										
+					
 					//Gets the value of the added measures
 					if (layout.lineList[i].lineValue.length > 0) {
-						var vOriginalText = layout.lineList[i].lineValue;
+						if (isNaN(qTexto)){
+							vOriginalText = layout.lineList[i].lineValue;
+						}
+						else
+						{							
+							var format = layout.lineList[i].textFormat;
+							var number = $.formatNumber(qTexto, {format:format, locale:"de"});
+							vOriginalText = number;							
+						}
 					}
 					else
 					{
-						var vOriginalText = " ";
+						vOriginalText = " ";
 					}
 					
 					
 					//Generates the html code
-					html += "<p style='" + vLineCSSP + "'>" + vlinkHref + "<div style='background-color:"+ BackgroundColor + ";color:" + fontColorHC + ";" + vLineCSSDiv + ";'>" + vOriginalText + "</div>" + vlinkHrefClose + "</p>";
+					html += "<p style='" + vLineCSSP + "'>" + vlinkHref + "<div style='background-color:"+ BackgroundColor + ";color:" + fontColorHC + ";" + vLineCSSDiv + ";'>" + vOriginalText + "</div>" + vlinkHrefClose + "</p>";					
 					
+	
 
 				}
 				//Generates HTML - end 
