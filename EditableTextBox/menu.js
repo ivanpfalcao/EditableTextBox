@@ -17,7 +17,6 @@ define( [], function ( ) {
 		type: "items",
 		component: "accordion",
 		items: {
-			//inicio
 			MyList: {                              
 				type: "array",                       
 				ref: "lineList",                     
@@ -40,6 +39,20 @@ define( [], function ( ) {
 						label: "Line Value",				     
 						expression: "always"    
 					},
+						DropDownDecSep: {
+							type: "string",
+							component: "dropdown",
+							label: "Decimal Separator",
+							ref: "DecSep",
+							options: [{
+								value: "DotSep",
+								label: "Dot as Decimal Separator"
+							}, {
+								value: "CommaSep",
+								label: "Comma as Decimal Separator"
+							}],
+							defaultValue: "CommaSep"
+						},					
 					textFormat: {                        
 						type: "string",                  
 						ref: "textFormat",                 
@@ -129,12 +142,6 @@ define( [], function ( ) {
 					}
 				}                                    
 			}                                      
-			
-			
-			
-			
-			
-			//final
 			
 		}
 	};

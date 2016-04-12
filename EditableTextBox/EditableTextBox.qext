@@ -7,8 +7,8 @@
 	"author": "Ivan Falcão",
 	"homepage": "",
 	"keywords": "qlik-sense, visualization, Text, CSS",
-	"license": "",
-	"repository": "",
+	"license": "GPL-LICENSE",
+	"repository": "https://github.com/ivanpfalcao/EditableTextBox",
 	"dependencies": {
 		"qlik-sense": ">=2.2.x"
 	}

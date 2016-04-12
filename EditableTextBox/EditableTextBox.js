@@ -56,8 +56,10 @@ function($, properties, cssContent, nformater) {
 				
 				for (i=0;i<lenItems;i++){	
 
-					//Gets the value of the added item  converting to integer
-					qTexto = layout.lineList[i].lineValue;		
+					//Gets the value of the added item
+					qTexto = layout.lineList[i].lineValue;	
+					
+					//replaces comma by dot
 					qTexto = qTexto.replace(",",".");
 					if (isNaN(qTexto) || qTexto == null || qTexto.length < 1){
 						
@@ -123,10 +125,12 @@ function($, properties, cssContent, nformater) {
 									}
 							}
 					}
+					
+					//Set CSS (div and paragraph)
 					var vLineCSSDiv = layout.lineList[i].lineCSSDiv;					
 					var vLineCSSP = layout.lineList[i].lineCSSP;
 					
-
+					//Set hyperlink
 					if (layout.lineList[i].linkHref.length>0) {
 						vlinkHrefClose = "</a>"
 						if (layout.lineList[i].linkHrefCSS.length>0) {
@@ -145,15 +149,24 @@ function($, properties, cssContent, nformater) {
 					
 					var vOriginalText;										
 					
-					//Gets the value of the added measures
+					//Gets the value of the added items
 					if (layout.lineList[i].lineValue.length > 0) {
 						if (isNaN(qTexto)){
 							vOriginalText = layout.lineList[i].lineValue;
 						}
 						else
 						{							
+							//Set decimal separator
+							if (layout.lineList[i].DecSep == "DotSep"){
+								var locale = "us";
+							} 
+							else 
+							{
+								var locale = "de";
+							}
+							
 							var format = layout.lineList[i].textFormat;
-							var number = $.formatNumber(qTexto, {format:format, locale:"de"});
+							var number = $.formatNumber(qTexto, {format:format, locale:locale});
 							vOriginalText = number;							
 						}
 					}
