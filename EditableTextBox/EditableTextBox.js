@@ -42,7 +42,8 @@ function($, properties, cssContent, nformater, cssJqueryUI, cssJqueryUIstr,cssJq
 				var BackgroundColor;
 				var fontColorHC;
 				var theDialogArray = [];
-				
+				var ObjectID = layout.qInfo.qId;
+
 									
 				// Set the colors to be selected
 				var palette = [
@@ -153,7 +154,7 @@ function($, properties, cssContent, nformater, cssJqueryUI, cssJqueryUIstr,cssJq
 							
 							
 							//Generates iFrame to be appended in the end of document
-							iFrames += "<div id='dialog" + i + "' style='display:none;' title='Dialog Title'><iframe frameborder='0' scrolling='no' style='position:absolute;width:100%;height:100%;border:none' src='" + layout.lineList[i].linkHref + "'></iframe></div>";
+							iFrames += "<div id='dialog" + ObjectID + i + "' style='display:none;' title='Dialog Title'><iframe frameborder='0' scrolling='no' style='position:absolute;width:100%;height:100%;border:none' src='" + layout.lineList[i].linkHref + "'></iframe></div>";
 
 							
 						} 
@@ -166,7 +167,7 @@ function($, properties, cssContent, nformater, cssJqueryUI, cssJqueryUIstr,cssJq
 							vlinkHref = "<div class='clickdiv' id='divid"+ i +"' style='cursor:pointer;color:" + fontColorHC + ";'>";
 							
 							//Generates iFrame to be appended in the end of document
-							iFrames += "<div id='dialog" + i + "' style='display:none;' title='Dialog Title'><iframe frameborder='0' scrolling='no' style='position:absolute;width:100%;height:100%;border:none' src='" + layout.lineList[i].linkHref + "'></iframe></div>";
+							iFrames += "<div id='dialog" + ObjectID + i + "' style='display:none;' title='Dialog Title'><iframe frameborder='0' scrolling='no' style='position:absolute;width:100%;height:100%;border:none' src='" + layout.lineList[i].linkHref + "'></iframe></div>";
 							
 							
 						}
@@ -222,27 +223,29 @@ function($, properties, cssContent, nformater, cssJqueryUI, cssJqueryUIstr,cssJq
 				
 				
 				// pop up - generates the dialog UI
-				for (i=0;i<lenItems;i++){					
-					var vWidth = $(window).width() * 0.8;
-					var vHeight = $(window).height() * 0.8;
-					var opt2 = {
-						autoOpen: false,
-						closeOnEscape: true,
-						height : vHeight,
-						position: {my:'left',at: 'left',of: '#targetElement',collision: 'flip'} ,
-						title: 'Window',
-						draggable: true,
-						width : vWidth,
-						//maxWidth : width,
-						//minWidth : width,
-						//maxHeigth : height,
-						//minHeigth : height,
-						fluid: true,
-						resizable : true,
-						modal : true,
-					};
-					var tmpID = "#dialog" + i;	
-					theDialogArray[i] = $(tmpID).dialog(opt2);					
+				for (i=0;i<lenItems;i++){	
+					if (layout.lineList[i].linkHref.length>0) {
+						var vWidth = $(window).width() * 0.8;
+						var vHeight = $(window).height() * 0.8;
+						var opt2 = {
+							autoOpen: false,
+							closeOnEscape: true,
+							height : vHeight,
+							position: {my:'left',at: 'left',of: '#targetElement',collision: 'flip'} ,
+							title: 'Window',
+							draggable: true,
+							width : vWidth,
+							//maxWidth : width,
+							//minWidth : width,
+							//maxHeigth : height,
+							//minHeigth : height,
+							fluid: true,
+							resizable : true,
+							modal : true,
+						};
+						var tmpID = "#dialog" + ObjectID + i;	
+						theDialogArray[i] = $(tmpID).dialog(opt2);
+					}
 				}	
 				// pop up - generates the dialog UI - end
 				
@@ -273,5 +276,3 @@ function($, properties, cssContent, nformater, cssJqueryUI, cssJqueryUIstr,cssJq
 		}
 	};
 });
-
-
