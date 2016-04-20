@@ -1,7 +1,11 @@
-define(["jquery", "./menu", "text!./Layout01.css", "./src/nformatter.htable"],  
-function($, properties, cssContent, nformater) {
+define(["jquery", "./menu", "text!./css/Layout01.css", "./src/nformatter.htable","text!./css/jquery-ui.css","text!./css/jquery-ui-structure.css","text!./css/jquery-ui-theme.css","./src/jquery-ui"],  
+function($, properties, cssContent, nformater, cssJqueryUI, cssJqueryUIstr,cssJqueryUItheme, jqueryui) {
 	'use strict';
+	$("<style>").html(cssJqueryUI).appendTo("head");
+	$("<style>").html(cssJqueryUIstr).appendTo("head");
+	$("<style>").html(cssJqueryUItheme).appendTo("head");
 	$("<style>").html(cssContent).appendTo("head");
+	$(document).ready();
 	return {
 		initialProperties : {
 			version: 1.0,
@@ -36,7 +40,9 @@ function($, properties, cssContent, nformater) {
 				var i;
 				var qTexto;
 				var BackgroundColor;
-				var fontColorHC
+				var fontColorHC;
+				var theDialogArray = [];
+				
 									
 				// Set the colors to be selected
 				var palette = [
@@ -53,6 +59,7 @@ function($, properties, cssContent, nformater) {
 						"#ffffff",
 						"#000000"
 				];	
+				
 				
 				for (i=0;i<lenItems;i++){	
 
@@ -129,16 +136,39 @@ function($, properties, cssContent, nformater) {
 					//Set CSS (div and paragraph)
 					var vLineCSSDiv = layout.lineList[i].lineCSSDiv;					
 					var vLineCSSP = layout.lineList[i].lineCSSP;
+					var iFrames = "";
+					var vlinkHref = "";
+					
+					
 					
 					//Set hyperlink
 					if (layout.lineList[i].linkHref.length>0) {
-						vlinkHrefClose = "</a>"
-						if (layout.lineList[i].linkHrefCSS.length>0) {
-							vlinkHref = "<a style='color:" + fontColorHC + ";" + layout.lineList[i].linkHrefCSS + "' href='" + layout.lineList[i].linkHref + "'>";
+						
+						vlinkHrefClose = "</div>"
+						if (layout.lineList[i].linkHrefCSS.length>0) {											
+							
+							
+							//Generates link with CSS
+							vlinkHref = "<div class='clickdiv' id='divid"+ i +"' style='cursor:pointer;color:" + fontColorHC + ";" + layout.lineList[i].linkHrefCSS + "'>";
+							
+							
+							//Generates iFrame to be appended in the end of document
+							iFrames += "<div id='dialog" + i + "' style='display:none;' title='Dialog Title'><iframe frameborder='0' scrolling='no' style='position:absolute;width:100%;height:100%;border:none' src='" + layout.lineList[i].linkHref + "'></iframe></div>";
+
+							
 						} 
 						else
 						{
-							vlinkHref = "<a href='" + layout.lineList[i].linkHref + "'>";
+							//vlinkHref = "<a href='" + layout.lineList[i].linkHref + "'>";
+							
+
+							//Generates link without CSS
+							vlinkHref = "<div class='clickdiv' id='divid"+ i +"' style='cursor:pointer;color:" + fontColorHC + ";'>";
+							
+							//Generates iFrame to be appended in the end of document
+							iFrames += "<div id='dialog" + i + "' style='display:none;' title='Dialog Title'><iframe frameborder='0' scrolling='no' style='position:absolute;width:100%;height:100%;border:none' src='" + layout.lineList[i].linkHref + "'></iframe></div>";
+							
+							
 						}
 					}
 					else
@@ -177,14 +207,45 @@ function($, properties, cssContent, nformater) {
 					
 					
 					//Generates the html code
-					html += "<p style='" + vLineCSSP + "'>" + vlinkHref + "<div style='background-color:"+ BackgroundColor + ";color:" + fontColorHC + ";" + vLineCSSDiv + ";'>" + vOriginalText + "</div>" + vlinkHrefClose + "</p>";					
+					html += "<p style='" + vLineCSSP + "'>" + vlinkHref + "<div style='background-color:"+ BackgroundColor + ";color:" + fontColorHC + ";" + vLineCSSDiv + ";'>" + vOriginalText + "</div>" + vlinkHrefClose + "</p>";	
+					
+					//Append iFrame in the end of the document
+					html += iFrames;
 					
 	
 
 				}
 				//Generates HTML - end 
 				
+				
 				$element.html(html);
+				
+				
+				// pop up - generates the dialog UI
+				for (i=0;i<lenItems;i++){					
+					var vWidth = $(window).width() * 0.8;
+					var vHeight = $(window).height() * 0.8;
+					var opt2 = {
+						autoOpen: false,
+						closeOnEscape: true,
+						height : vHeight,
+						position: {my:'left',at: 'left',of: '#targetElement',collision: 'flip'} ,
+						title: 'Window',
+						draggable: true,
+						width : vWidth,
+						//maxWidth : width,
+						//minWidth : width,
+						//maxHeigth : height,
+						//minHeigth : height,
+						fluid: true,
+						resizable : true,
+						modal : true,
+					};
+					var tmpID = "#dialog" + i;	
+					theDialogArray[i] = $(tmpID).dialog(opt2);					
+				}	
+				// pop up - generates the dialog UI - end
+				
 				$element.find('.selectable').on('qv-activate', function() {
 					if(this.hasAttribute("data-value")) {
 						var value = parseInt(this.getAttribute("data-value"), 10), dim = 0;
@@ -192,6 +253,21 @@ function($, properties, cssContent, nformater) {
 						$(this).toggleClass("selected");
 					}
 				});
+				
+		
+				
+					
+		
+				//Sets the onclick behavior 
+				var clickedID = "";
+				$( ".clickdiv" ).click(function() {
+					clickedID = this.id;					
+					clickedID = clickedID.replace("divid","");
+					theDialogArray[clickedID].dialog("open");
+
+				});
+										
+				
 			}
 
 		}
