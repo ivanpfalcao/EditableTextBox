@@ -1,9 +1,9 @@
-define(["jquery", "./menu", "text!./css/Layout01.css", "./src/nformatter.htable","text!./css/jquery-ui.css","text!./css/jquery-ui-structure.css","text!./css/jquery-ui-theme.css","./src/jquery-ui"],  
-function($, properties, cssContent, nformater, cssJqueryUI, cssJqueryUIstr,cssJqueryUItheme, jqueryui) {
+define(["jquery", "./menu", "text!./css/Layout01.css", "./src/nformatter.htable","text!./css/jquery-ui.css","./src/jquery-ui"],  
+function($, properties, cssContent, nformater, cssJqueryUI, jqueryui) {
 	'use strict';
 	$("<style>").html(cssJqueryUI).appendTo("head");
-	$("<style>").html(cssJqueryUIstr).appendTo("head");
-	$("<style>").html(cssJqueryUItheme).appendTo("head");
+	//$("<style>").html(cssJqueryUIstr).appendTo("head");
+	//$("<style>").html(cssJqueryUItheme).appendTo("head");
 	$("<style>").html(cssContent).appendTo("head");
 	$(document).ready();
 	return {
@@ -43,6 +43,7 @@ function($, properties, cssContent, nformater, cssJqueryUI, cssJqueryUIstr,cssJq
 				var fontColorHC;
 				var theDialogArray = [];
 				var ObjectID = layout.qInfo.qId;
+				var iFrames = [];
 
 									
 				// Set the colors to be selected
@@ -136,16 +137,13 @@ function($, properties, cssContent, nformater, cssJqueryUI, cssJqueryUIstr,cssJq
 					
 					//Set CSS (div and paragraph)
 					var vLineCSSDiv = layout.lineList[i].lineCSSDiv;					
-					var vLineCSSP = layout.lineList[i].lineCSSP;
-					var iFrames = "";
-					var vlinkHref = "";
-					
+					var vLineCSSP = layout.lineList[i].lineCSSP;					
 					
 					
 					//Set hyperlink
 					if (layout.lineList[i].linkHref.length>0) {
 						
-						vlinkHrefClose = "</div>"
+						vlinkHrefClose = "</div>";
 						if (layout.lineList[i].linkHrefCSS.length>0) {											
 							
 							
@@ -154,7 +152,7 @@ function($, properties, cssContent, nformater, cssJqueryUI, cssJqueryUIstr,cssJq
 							
 							
 							//Generates iFrame to be appended in the end of document
-							iFrames += "<div id='dialog" + ObjectID + i + "' style='display:none;' title='Dialog Title'><iframe frameborder='0' scrolling='no' style='position:absolute;width:100%;height:100%;border:none' src='" + layout.lineList[i].linkHref + "'></iframe></div>";
+							iFrames[i] = "<div class='iFramediv' id='dialog" + ObjectID + i + "' style='display:none;' title='Dialog Title'><iframe frameborder='0' scrolling='no' style='position:absolute;width:100%;height:100%;border:none' src='" + layout.lineList[i].linkHref + "'></iframe></div>";
 
 							
 						} 
@@ -167,7 +165,7 @@ function($, properties, cssContent, nformater, cssJqueryUI, cssJqueryUIstr,cssJq
 							vlinkHref = "<div class='clickdiv' id='divid"+ i +"' style='cursor:pointer;color:" + fontColorHC + ";'>";
 							
 							//Generates iFrame to be appended in the end of document
-							iFrames += "<div id='dialog" + ObjectID + i + "' style='display:none;' title='Dialog Title'><iframe frameborder='0' scrolling='no' style='position:absolute;width:100%;height:100%;border:none' src='" + layout.lineList[i].linkHref + "'></iframe></div>";
+							iFrames[i] = "<div class='iFramediv' id='dialog" + ObjectID + i + "' style='display:none;' title='Dialog Title'><iframe frameborder='0' scrolling='no' style='position:absolute;width:100%;height:100%;border:none' src='" + layout.lineList[i].linkHref + "'></iframe></div>";
 							
 							
 						}
@@ -177,6 +175,7 @@ function($, properties, cssContent, nformater, cssJqueryUI, cssJqueryUIstr,cssJq
 						var vlinkHref = "";
 						var vlinkHrefClose = "";
 					}
+					
 					
 					var vOriginalText;										
 					
@@ -210,8 +209,6 @@ function($, properties, cssContent, nformater, cssJqueryUI, cssJqueryUIstr,cssJq
 					//Generates the html code
 					html += "<p style='" + vLineCSSP + "'>" + vlinkHref + "<div style='background-color:"+ BackgroundColor + ";color:" + fontColorHC + ";" + vLineCSSDiv + ";'>" + vOriginalText + "</div>" + vlinkHrefClose + "</p>";	
 					
-					//Append iFrame in the end of the document
-					html += iFrames;
 					
 	
 
@@ -222,32 +219,9 @@ function($, properties, cssContent, nformater, cssJqueryUI, cssJqueryUIstr,cssJq
 				$element.html(html);
 				
 				
-				// pop up - generates the dialog UI
-				for (i=0;i<lenItems;i++){	
-					if (layout.lineList[i].linkHref.length>0) {
-						var vWidth = $(window).width() * 0.8;
-						var vHeight = $(window).height() * 0.8;
-						var opt2 = {
-							autoOpen: false,
-							closeOnEscape: true,
-							height : vHeight,
-							position: {my:'left',at: 'left',of: '#targetElement',collision: 'flip'} ,
-							title: 'Window',
-							draggable: true,
-							width : vWidth,
-							//maxWidth : width,
-							//minWidth : width,
-							//maxHeigth : height,
-							//minHeigth : height,
-							fluid: true,
-							resizable : true,
-							modal : true,
-						};
-						var tmpID = "#dialog" + ObjectID + i;	
-						theDialogArray[i] = $(tmpID).dialog(opt2);
-					}
-				}	
-				// pop up - generates the dialog UI - end
+				// pop up - generates the dialog UI settings
+
+				// pop up - generates the dialog UI settings - end
 				
 				$element.find('.selectable').on('qv-activate', function() {
 					if(this.hasAttribute("data-value")) {
@@ -256,21 +230,40 @@ function($, properties, cssContent, nformater, cssJqueryUI, cssJqueryUIstr,cssJq
 						$(this).toggleClass("selected");
 					}
 				});
-				
+									
 		
-				
-					
-		
-				//Sets the onclick behavior 
-				var clickedID = "";
+				//Sets the onclick behavior, opening the respective dialog
 				$( ".clickdiv" ).click(function() {
-					clickedID = this.id;					
+	
+					var vWidth = $(window).width() * 0.8;
+					var vHeight = $(window).height() * 0.8;
+					var opt2 = {
+						autoOpen: false,
+						closeOnEscape: true,
+						height : vHeight,
+						position: {my:'left',at: 'left',of: '#targetElement',collision: 'flip'} ,
+						title: 'Window',
+						draggable: true,
+						width : vWidth,
+						//maxWidth : width,
+						//minWidth : width,
+						//maxHeigth : height,
+						//minHeigth : height,
+						fluid: true,
+						resizable : true,
+						modal : true,
+						close: function() {
+							$('#dialog' + ObjectID + clickedID).dialog("destroy");
+						}
+					};	
+					var clickedID = "";
+					clickedID = this.id;						
 					clickedID = clickedID.replace("divid","");
+					theDialogArray[clickedID] = $(iFrames[clickedID]).dialog(opt2);
 					theDialogArray[clickedID].dialog("open");
-
-				});
-										
 				
+				});
+																		
 			}
 
 		}
