@@ -242,7 +242,7 @@ function($, properties, cssContent, nformater, cssJqueryUI, jqueryui) {
 						closeOnEscape: true,
 						height : vHeight,
 						position: {my:'left',at: 'left',of: '#targetElement',collision: 'flip'} ,
-						title: 'Window',
+						title: 'Dialog',
 						draggable: true,
 						width : vWidth,
 						//maxWidth : width,
